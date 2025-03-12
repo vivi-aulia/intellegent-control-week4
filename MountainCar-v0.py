@@ -13,8 +13,11 @@ state_size = env.observation_space.shape[0]
 action_size = env.action_space.n
 
 # Inisialisasi agen DQN dengan target network
-agent = DQNAgent(state_size, action_size)  # Hapus parameter yang tidak dikenali 
+agent = DQNAgent(state_size, action_size)  
 agent.epsilon = 0.01  # Minimalkan eksplorasi saat testing
+
+# Simpan skor tiap episode
+scores = []
 
 def visualize_episode():
     frames = []
@@ -36,6 +39,7 @@ def visualize_episode():
             print(f"Test Episode Score ({env_name}): {total_reward}")
             break
     
+    scores.append(total_reward)  # Simpan skor episode
     return frames, total_reward
 
 def create_animation(frames):
@@ -50,12 +54,31 @@ def create_animation(frames):
     ani = animation.FuncAnimation(fig, update, frames=frames, interval=50)
     plt.show()
 
+def plot_scores(scores):
+    """Menampilkan grafik skor episode."""
+    plt.figure(figsize=(8, 5))
+    plt.plot(scores, label="Total Reward per Episode", marker="o")
+    plt.xlabel("Episode")
+    plt.ylabel("Total Reward")
+    plt.title(f"Performance of DQN Agent in {env_name}")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
 # Jalankan pengujian pada MountainCar-v0
-frames, score = visualize_episode()
+episodes = 10  # Jalankan beberapa episode untuk hasil lebih baik
+for _ in range(episodes):
+    frames, score = visualize_episode()
+
+# Tampilkan animasi episode terakhir
 create_animation(frames)
-env.close()
+
+# Tampilkan grafik skor
+plot_scores(scores)
 
 # Simpan hasil eksperimen
 with open(f"result_{env_name}.txt", "w") as file:
     file.write(f"Environment: {env_name}\n")
-    file.write(f"Final Score: {score}\n")
+    file.write(f"Scores: {scores}\n")
+
+env.close()
