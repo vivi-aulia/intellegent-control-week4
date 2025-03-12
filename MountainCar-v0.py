@@ -13,7 +13,7 @@ state_size = env.observation_space.shape[0]
 action_size = env.action_space.n
 
 # Inisialisasi agen DQN dengan target network
-agent = DQNAgent(state_size, action_size, use_target_network=True)  
+agent = DQNAgent(state_size, action_size)  # Hapus parameter yang tidak dikenali 
 agent.epsilon = 0.01  # Minimalkan eksplorasi saat testing
 
 def visualize_episode():

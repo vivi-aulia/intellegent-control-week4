@@ -52,7 +52,7 @@ if __name__ == '__main__':
     state_size = env.observation_space.shape[0]
     action_size = env.action_space.n
     agent = DQNAgent(state_size, action_size)
-    episodes = 100
+    episodes = 50
     batch_size = 32
 
     for e in range(episodes):
