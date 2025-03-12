@@ -20,6 +20,7 @@ agent.epsilon = 0.01  # Minimalkan eksplorasi saat testing
 scores = []
 
 def visualize_episode():
+    """Menjalankan satu episode dan menyimpan total reward."""
     frames = []
     state, _ = env.reset()
     state = np.reshape(state, [1, state_size])
@@ -40,43 +41,42 @@ def visualize_episode():
             break
     
     scores.append(total_reward)  # Simpan skor episode
-    return frames, total_reward
+    return frames
 
-def create_animation(frames):
-    fig, ax = plt.subplots()
-    ax.axis('off')
-    img = ax.imshow(frames[0])
+def create_animation_and_plot(frames, scores):
+    """Membuat animasi episode terakhir dan menampilkan grafik skor."""
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
+    
+    # Animasi
+    ax1.axis('off')
+    img = ax1.imshow(frames[0])
     
     def update(frame):
         img.set_array(frame)
         return img,
     
     ani = animation.FuncAnimation(fig, update, frames=frames, interval=50)
-    plt.show()
-
-def plot_scores(scores):
-    """Menampilkan grafik skor episode."""
-    plt.figure(figsize=(8, 5))
-    plt.plot(scores, label="Total Reward per Episode", marker="o")
-    plt.xlabel("Episode")
-    plt.ylabel("Total Reward")
-    plt.title(f"Performance of DQN Agent in {env_name}")
-    plt.legend()
-    plt.grid()
+    
+    # Grafik skor
+    ax2.plot(scores, label="Total Reward per Episode", marker="o", linestyle="-", color="b")
+    ax2.set_xlabel("Episode")
+    ax2.set_ylabel("Total Reward")
+    ax2.set_title(f"Performance of DQN Agent in {env_name}")
+    ax2.legend()
+    ax2.grid()
+    
     plt.show()
 
 # Jalankan pengujian pada MountainCar-v0
 episodes = 10  # Jalankan beberapa episode untuk hasil lebih baik
-for _ in range(episodes):
-    frames, score = visualize_episode()
+for episode in range(episodes):
+    frames = visualize_episode()
+    print(f"Episode: {episode + 1}, Score: {scores[-1]}, Epsilon: {agent.epsilon}")
 
-# Tampilkan animasi episode terakhir
-create_animation(frames)
+# Tampilkan animasi dan grafik skor
+create_animation_and_plot(frames, scores)
 
-# Tampilkan grafik skor
-plot_scores(scores)
-
-# Simpan hasil eksperimen
+# Simpan hasil eksperimen ke file
 with open(f"result_{env_name}.txt", "w") as file:
     file.write(f"Environment: {env_name}\n")
     file.write(f"Scores: {scores}\n")
