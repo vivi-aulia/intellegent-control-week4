@@ -1,0 +1,24 @@
+Analisis Hasil:
+1.	Performa Agen di CartPole:
+Agen DQN bertugas menjaga keseimbangan tiang di atas kereta. Jika pelatihan optimal, agen dapat bertahan lama. Jika tidak, performanya kurang baik.
+2.	Pengaruh Parameter terhadap Kinerja Agen:
+o	Gamma: Menentukan fokus agen pada reward jangka pendek atau panjang.
+o	Epsilon: Mengontrol eksplorasi dan eksploitasi tindakan.
+o	Learning Rate: Memengaruhi kecepatan dan stabilitas pembelajaran.
+3.	Tantangan Pelatihan RL:
+o	Menyeimbangkan eksplorasi dan eksploitasi.
+o	Menghindari ketidakstabilan pelatihan.
+o	Menyesuaikan parameter dengan optimal.
+
+Diskusi:
+1.	Perbedaan RL dan Supervised Learning dalam Kendali:
+o	RL: Belajar dari pengalaman dengan mekanisme reward.
+o	Supervised Learning: Menggunakan dataset berlabel untuk belajar pola.
+o	RL lebih cocok untuk lingkungan dinamis dan kompleks.
+2.	Optimasi Eksplorasi dan Eksploitasi RL:
+o	Epsilon-greedy decay: Eksplorasi tinggi di awal, menurun seiring waktu.
+o	UCB & Boltzmann Exploration: Menyeimbangkan eksplorasi dan eksploitasi berdasarkan reward.
+3.	Aplikasi RL dalam Sistem Kendali Nyata:
+o	Robotika: Mengoptimalkan pergerakan.
+o	Kendaraan Otonom: Mengambil keputusan adaptif.
+o	Industri & Drone: Meningkatkan efisiensi dan navigasi otomatis.
